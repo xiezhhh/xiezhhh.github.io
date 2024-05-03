@@ -46,7 +46,14 @@ export const getPlayerList = async (server, type, id) => {
 // 获取一言数据
 export const getHitokoto = async () => {
   const res = await fetch("https://v.api.aa1.cn/api/yiyan/index.php");
-  return await res.json();
+  const text = await res.text();
+  try {
+    const json = JSON.parse(text);  // 尝试将文本转换为JSON对象
+    return json;
+  } catch (error) {
+    console.error('Failed to parse text as JSON:', error);
+    return null;  // 在无法解析JSON时返回null或适当的错误处理
+  }
 };
 
 /**
