@@ -8,10 +8,5 @@
     "icon": "LaptopCode",
     "name": "探针",
     "link": "https://status.imsyy.top/"
-  },
-  {
-    "icon": "Plane",
-    "name": "机场",
-    "link": "https://status.imsyy.top/"
-  },
+  }
 ]
