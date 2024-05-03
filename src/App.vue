@@ -103,14 +103,8 @@ onMounted(() => {
   getWidth();
   window.addEventListener("resize", getWidth);
 
-  // 控制台输出
-  const styleTitle1 = "font-size: 20px;font-weight: 600;color: rgb(244,167,89);";
-  const styleTitle2 = "font-size:12px;color: rgb(244,167,89);";
-  const styleContent = "color: rgb(30,152,255);";
-  const title1 = "無名の主页";
-  const title2 = ``;
-  const content = `\n\n版本: ${config.version}\n主页: ${config.home}\nGithub: ${config.github}`;
-  console.info(`%c${title1} %c${title2} %c${content}`, styleTitle1, styleTitle2, styleContent);
+  // 控制台输出，仅显示"SdSjm的主页"
+  console.info("SdSjm的主页");
 });
 
 onBeforeUnmount(() => {
