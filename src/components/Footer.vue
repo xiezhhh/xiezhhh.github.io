@@ -1,40 +1,40 @@
 <template>
-<footer id="footer" :class="store.footerBlur ? 'blur' : null">
-  <Transition name="fade" mode="out-in">
-    <div v-if="!store.playerState || !store.playerLrcShow" class="power">
-      <span>
-        Copyright&nbsp;&copy;
-        <span v-if="siteStartDate?.length >= 4" class="site-start">
-          {{ siteStartDate.substring(0, 4) }}
-          -
-        </span>
-        {{ fullYear }}
-        <span>{{ siteAnthor }}</span>
-      </span>
-      <!-- 以下信息请不要修改哦 -->
-      <span class="hidden">
-        &amp;&nbsp;Made&nbsp;by
+  <footer id="footer" :class="store.footerBlur ? 'blur' : null">
+    <Transition name="fade" mode="out-in">
+      <div v-if="!store.playerState || !store.playerLrcShow" class="power">
         <span>
-          {{ config.author }}
+          Copyright&nbsp;&copy;
+          <span v-if="siteStartDate?.length >= 4" class="site-start">
+            {{ siteStartDate.substring(0, 4) }}
+            -
+          </span>
+          {{ fullYear }}
+          <a :href="siteUrl">{{ siteAnthor }}</a>
         </span>
-      </span>
-      <!-- 保留站点备案的超链接 -->
-      <a v-if="siteIcp" href="https://beian.miit.gov.cn" target="_blank">
-        &amp;
-        {{ siteIcp }}
-      </a>
-    </div>
-    <div v-else class="lrc">
-      <Transition name="fade" mode="out-in">
-        <div class="lrc-all" :key="store.getPlayerLrc">
-          <music-one theme="filled" size="18" fill="#efefef" />
-          <span class="lrc-text text-hidden" v-html="store.getPlayerLrc" />
-          <music-one theme="filled" size="18" fill="#efefef" />
-        </div>
-      </Transition>
-    </div>
-  </Transition>
-</footer>
+        <!-- 以下信息请不要修改哦 -->
+        <span class="hidden">
+          &amp;&nbsp;Made&nbsp;by
+          <a :href="config.github" target="_blank">
+            {{ config.author }}
+          </a>
+        </span>
+        <!-- 站点备案 -->
+        <a v-if="siteIcp" href="https://beian.miit.gov.cn" target="_blank">
+          &amp;
+          {{ siteIcp }}
+        </a>
+      </div>
+      <div v-else class="lrc">
+        <Transition name="fade" mode="out-in">
+          <div class="lrc-all" :key="store.getPlayerLrc">
+            <music-one theme="filled" size="18" fill="#efefef" />
+            <span class="lrc-text text-hidden" v-html="store.getPlayerLrc" />
+            <music-one theme="filled" size="18" fill="#efefef" />
+          </div>
+        </Transition>
+      </div>
+    </Transition>
+  </footer>
 </template>
 
 <script setup>
