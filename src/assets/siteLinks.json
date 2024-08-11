@@ -7,26 +7,26 @@
   {
     "icon": "Cloud",
     "name": "网盘",
-    "link": "https://pan.elykia.cn/"
+    "link": "https://alist.elykia.cn/"
   },
   {
-    "icon": "CompactDisc",
-    "name": "音乐",
-    "link": "https://music.elykia.cn/"
+    "icon": "Book",
+    "name": "图床",
+    "link": "https://img.elykia.cn/"
   },
   {
     "icon": "Compass",
-    "name": "起始页",
-    "link": "https://nav.elykia.cn/"
+    "name": "个人主页",
+    "link": "https://www.elykia.cn/"
   },
   {
     "icon": "Fire",
-    "name": "今日热榜",
-    "link": "https://hot.elykia.cn/"
+    "name": "青龙面板",
+    "link": "https://qinglong.elykia.cn/"
   },
   {
     "icon": "LaptopCode",
     "name": "站点监测",
-    "link": "https://status.elykia.cn/"
+    "link": "https://1panel.elykia.cn/"
   }
 ]
