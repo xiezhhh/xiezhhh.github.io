@@ -16,8 +16,8 @@
   },
   {
     "icon": "Compass",
-    "name": "个人主页",
-    "link": "https://www.elykia.cn/"
+    "name": "站点监测",
+    "link": "https://status.elykia.cn/"
   },
   {
     "icon": "Fire",
@@ -26,7 +26,7 @@
   },
   {
     "icon": "LaptopCode",
-    "name": "站点监测",
+    "name": "控制面板",
     "link": "https://1panel.elykia.cn/"
   }
 ]
