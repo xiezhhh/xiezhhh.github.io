@@ -47,6 +47,7 @@ import MainLeft from "@/views/Main/Left.vue";
 import MainRight from "@/views/Main/Right.vue";
 import MoreSet from "@/views/MoreSet/index.vue";
 import { CloseSmall, HamburgerButton } from "@icon-park/vue-next";
+import { SpeedInsights } from "@vercel/speed-insights/vue";
 import { Icon } from "@vicons/utils";
 
 const store = mainStore();
