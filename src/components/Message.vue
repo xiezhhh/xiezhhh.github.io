@@ -115,6 +115,7 @@ watch(
         @media (min-width: 721px) and (max-width: 789px) {
           display: none;
         }
+        color: #15e1f8;
       }
     }
     @media (max-width: 768px) {
