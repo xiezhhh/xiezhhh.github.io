@@ -68,6 +68,9 @@ export default ({ mode }) =>
         },
       ],
     },
+    optimizeDeps: {
+      include: ["vue-router"], // 解决useRoute未导出问题
+    },
     css: {
       preprocessorOptions: {
         scss: {
