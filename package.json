@@ -14,6 +14,7 @@
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.0.12",
     "@worstone/vue-aplayer": "^1.0.6",
     "aplayer": "^1.10.1",
     "axios": "^1.6.8",
