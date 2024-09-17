@@ -29,9 +29,9 @@
       <Transition name="fade" mode="out-in">
         <Footer class="f-ter" v-show="!store.backgroundShow && !store.setOpenState" />
       </Transition>
-      <SpeedInsights/>
     </main>
   </Transition>
+  <SpeedInsights/>
 </template>
 
 <script setup>
