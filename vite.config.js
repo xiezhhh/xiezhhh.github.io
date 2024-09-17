@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
-import { defineConfig, loadEnv } from "vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import { resolve } from "path";
-import { VitePWA } from "vite-plugin-pwa";
 import vue from "@vitejs/plugin-vue";
+import { resolve } from "path";
 import AutoImport from "unplugin-auto-import/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
+import { defineConfig, loadEnv } from "vite";
 import viteCompression from "vite-plugin-compression";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default ({ mode }) =>
@@ -51,41 +51,6 @@ export default ({ mode }) =>
           theme_color: "#424242",
           background_color: "#424242",
           icons: [
-            {
-              src: "/images/icon/48.png",
-              sizes: "48x48",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/72.png",
-              sizes: "72x72",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/96.png",
-              sizes: "96x96",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/128.png",
-              sizes: "128x128",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/144.png",
-              sizes: "144x144",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/192.png",
-              sizes: "192x192",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/512.png",
-              sizes: "512x512",
-              type: "image/png",
-            },
           ],
         },
       }),
