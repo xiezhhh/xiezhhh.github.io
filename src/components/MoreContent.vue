@@ -1,5 +1,8 @@
 <template>
-  <div class="more-content">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+  <div class="more-content">
+    <b>关于乐色桶</b>
+    <br>一名苦逼高中生，每天就写点自己喜欢的东西</br>
+  </div>
 </template>
 
 <style lang="scss" scoped>
