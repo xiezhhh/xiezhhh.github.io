@@ -1,7 +1,7 @@
 [
     {
-        "icon": "Blog",
-        "name": "test",
-        "link": "test"
+        "icon": "Cloud",
+        "name": "服务状态",
+        "link": "https://status.lesetong.one"
       }
 ]
