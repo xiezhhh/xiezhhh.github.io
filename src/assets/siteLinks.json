@@ -1,7 +1,12 @@
 [
-    {
-        "icon": "Cloud",
-        "name": "服务状态",
-        "link": "https://status.lesetong.one"
+  {
+    "icon": "Cloud",
+    "name": "服务状态",
+    "link": "https://status.lesetong.one"
+  },
+  {
+        "icon": "Blogger",
+        "name": "屠夫的博客",
+        "link": "https://fravilion.top/"
       }
 ]
