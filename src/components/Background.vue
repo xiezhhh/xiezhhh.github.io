@@ -1,5 +1,5 @@
 <template>
-  <div :class="store.backgroundShow ? 'cover show' : 'cover'">
+  <div :class="store.backgroundShow ? 'cover show' : 'cover'" @dblclick="dblclick()">
     <img
       v-show="store.imgLoadStatus"
       :src="bgUrl"
@@ -14,11 +14,13 @@
       <a
         v-if="store.backgroundShow && store.coverType != '3'"
         class="down"
-        :href="bgUrl"
-        target="_blank"
+        @click="downloadByBlob(bgUrl, '壁纸')"
       >
         下载壁纸
       </a>
+    </Transition>
+    <Transition name="fade" mode="out-in">
+      <div v-if="store.backgroundShow" class="out" @click="store.backgroundShow = false">退出</div>
     </Transition>
   </div>
 </template>
@@ -39,24 +41,26 @@ const bgRandom = Math.floor(Math.random() * 10 + 1);
 // 更换壁纸链接
 const changeBg = (type) => {
   if (type == 0) {
-    bgUrl.value = `/images/background${bgRandom}.jpg`;
+    // bgUrl.value = `/images/background${bgRandom}.jpg`;
+    fetch("https://api.rls.icu/adaptive")
+      .then((response) => response.blob())
+      .then((blob) => {
+        bgUrl.value = URL.createObjectURL(blob);
+      });
   } else if (type == 1) {
     bgUrl.value = "https://api.dujin.org/bing/1920.php";
   } else if (type == 2) {
     bgUrl.value = "https://api.vvhan.com/api/wallpaper/views";
-  } else if (type == 3) {
-    bgUrl.value = "https://api.vvhan.com/api/wallpaper/acg";
+  } else {
+    bgUrl.value = "https://api.rls.icu/adaptive";
   }
 };
 
 // 图片加载完成
 const imgLoadComplete = () => {
-  imgTimeout.value = setTimeout(
-    () => {
-      store.setImgLoadStatus(true);
-    },
-    Math.floor(Math.random() * (600 - 300 + 1)) + 300,
-  );
+  imgTimeout.value = setTimeout(() => {
+    store.setImgLoadStatus(true);
+  }, Math.floor(Math.random() * (600 - 300 + 1)) + 300);
 };
 
 // 图片动画完成
@@ -86,6 +90,41 @@ watch(
     changeBg(value);
   },
 );
+
+//双击事件
+const dblclick = () => {
+  store.backgroundShow = !store.backgroundShow;
+  ElMessage({
+    message: `已${store.backgroundShow ? "开启" : "退出"}壁纸展示状态`,
+    grouping: true,
+  });
+};
+
+const downloadByBlob = (url, name) => {
+  let image = new Image();
+  image.setAttribute("crossOrigin", "anonymous");
+  image.src = url;
+  image.onload = () => {
+    let canvas = document.createElement("canvas");
+    canvas.width = image.width;
+    canvas.height = image.height;
+    let ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0, image.width, image.height);
+    canvas.toBlob((blob) => {
+      let url = URL.createObjectURL(blob);
+      download(url, name);
+      // 用完释放URL对象
+      URL.revokeObjectURL(url);
+    });
+  };
+};
+function download(href, name) {
+  let eleLink = document.createElement("a");
+  eleLink.download = name;
+  eleLink.href = href;
+  eleLink.click();
+  eleLink.remove();
+}
 
 onMounted(() => {
   // 加载壁纸
@@ -120,9 +159,7 @@ onBeforeUnmount(() => {
     object-fit: cover;
     backface-visibility: hidden;
     filter: blur(20px) brightness(0.3);
-    transition:
-      filter 0.3s,
-      transform 0.3s;
+    transition: filter 0.3s, transform 0.3s;
     animation: fade-blur-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 0.45s;
   }
@@ -143,6 +180,32 @@ onBeforeUnmount(() => {
     }
   }
   .down {
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: block;
+    padding: 20px 26px;
+    border-radius: 8px;
+    background-color: #00000030;
+    width: 120px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      transform: scale(1.05);
+      background-color: #00000060;
+    }
+    &:active {
+      transform: scale(1);
+    }
+  }
+
+  .out {
     font-size: 16px;
     color: white;
     position: absolute;

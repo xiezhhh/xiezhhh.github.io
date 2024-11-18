@@ -42,8 +42,8 @@
         <el-slider v-model="volumeNum" :show-tooltip="false" :min="0" :max="1" :step="0.01" />
       </div>
     </div>
-  </div>
-  <!-- 音乐列表弹窗 -->
+    
+    <!-- 音乐列表弹窗 -->
   <Transition name="fade" mode="out-in">
     <div class="music-list" v-show="musicListShow" @click="closeMusicList()">
       <Transition name="zoom">
@@ -66,6 +66,7 @@
       </Transition>
     </div>
   </Transition>
+  </div>
 </template>
 
 <script setup>
@@ -264,7 +265,7 @@ watch(
     display: flex;
     align-items: center;
     justify-content: center;
-    top: calc(50% - 300px);
+    top: calc(-50%);
     left: calc(50% - 320px);
     width: 640px;
     height: 600px;
