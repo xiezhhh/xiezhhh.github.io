@@ -1,41 +1,52 @@
 <template>
-  <!-- 加载 -->
-  <Loading />
-  <!-- 壁纸 -->
-  <Background @loadComplete="loadComplete" />
-  <!-- 主界面 -->
-  <Transition name="fade" mode="out-in">
-    <main id="main" v-if="store.imgLoadStatus">
-      <div class="container" v-show="!store.backgroundShow">
-        <section class="all" v-show="!store.setOpenState">
-          <MainLeft />
-          <MainRight v-show="!store.boxOpenState" />
-          <Box v-show="store.boxOpenState" />
-        </section>
-        <section class="more" v-show="store.setOpenState" @click="store.setOpenState = false">
-          <MoreSet />
-        </section>
-      </div>
-      <!-- 移动端菜单按钮 -->
-      <Icon
-        class="menu"
-        size="24"
-        v-show="!store.backgroundShow"
-        @click="store.mobileOpenState = !store.mobileOpenState"
-      >
-        <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" />
-      </Icon>
-      <!-- 页脚 -->
-      <Transition name="fade" mode="out-in">
-        <Footer class="f-ter" v-show="!store.backgroundShow && !store.setOpenState" />
-      </Transition>
-    </main>
-  </Transition>
+  <div>
+    <!-- 加载 -->
+    <Loading />
+    <!-- 壁纸 -->
+    <Background @loadComplete="loadComplete" />
+    <!-- 主界面 -->
+    <Transition name="fade" mode="out-in" @dblclick="dblclick()">
+      <main id="main" v-if="store.imgLoadStatus">
+        <div class="container" v-show="!store.backgroundShow">
+          <section class="all" v-show="!store.setOpenState">
+            <MainLeft />
+            <MainRight v-show="!store.boxOpenState" />
+            <Box v-show="store.boxOpenState" />
+          </section>
+          <section class="more" v-show="store.setOpenState" @click="store.setOpenState = false">
+            <MoreSet />
+          </section>
+        </div>
+        <!-- 移动端菜单按钮 -->
+        <Icon
+          class="menu"
+          size="24"
+          v-show="!store.backgroundShow"
+          @click="store.mobileOpenState = !store.mobileOpenState"
+        >
+          <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" />
+        </Icon>
+        <Icon
+          class="menu_background"
+          size="24"
+          v-show="!store.backgroundShow && store.mobileOpenState"
+          @click="store.backgroundShow = !store.backgroundShow"
+        >
+          <Pic></Pic>
+        </Icon>
+
+        <!-- 页脚 -->
+        <Transition name="fade" mode="out-in">
+          <Footer class="f-ter" v-show="!store.backgroundShow && !store.setOpenState" />
+        </Transition>
+      </main>
+    </Transition>
+  </div>
 </template>
 
 <script setup>
 import { helloInit, checkDays } from "@/utils/getTime.js";
-import { HamburgerButton, CloseSmall } from "@icon-park/vue-next";
+import { HamburgerButton, CloseSmall,Pic } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
 import { Icon } from "@vicons/utils";
 import Loading from "@/components/Loading.vue";
@@ -65,6 +76,16 @@ const loadComplete = () => {
   });
 };
 
+//双击事件
+const dblclick = () => {
+  console.log("双击事件");
+  store.backgroundShow = !store.backgroundShow;
+  ElMessage({
+    message: `已${store.backgroundShow ? "开启" : "退出"}壁纸展示状态`,
+    grouping: true,
+  });
+};
+
 // 监听宽度变化
 watch(
   () => store.innerWidth,
@@ -87,7 +108,7 @@ onMounted(() => {
       grouping: true,
       duration: 2000,
     });
-    return false;
+    return true;
   };
 
   // 鼠标中键事件
@@ -109,14 +130,17 @@ onMounted(() => {
   const styleTitle1 = "font-size: 20px;font-weight: 600;color: rgb(244,167,89);";
   const styleTitle2 = "font-size:12px;color: rgb(244,167,89);";
   const styleContent = "color: rgb(30,152,255);";
-  const title1 = "無名の主页";
+  const title1 = "LJZの主页";
   const title2 = `
- _____ __  __  _______     ____     __
-|_   _|  \\/  |/ ____\\ \\   / /\\ \\   / /
-  | | | \\  / | (___  \\ \\_/ /  \\ \\_/ /
-  | | | |\\/| |\\___ \\  \\   /    \\   /
- _| |_| |  | |____) |  | |      | |
-|_____|_|  |_|_____/   |_|      |_|`;
+
+ ___          ___  _______ 
+|   |        |   ||       |
+|   |        |   ||____   |
+|   |        |   | ____|  |
+|   |___  ___|   || ______|
+|       ||       || |_____ 
+|_______||_______||_______|
+`;
   const content = `\n\n版本: ${config.version}\n主页: ${config.home}\nGithub: ${config.github}`;
   console.info(`%c${title1} %c${title2} %c${content}`, styleTitle1, styleTitle2, styleContent);
 });
@@ -190,6 +214,31 @@ onBeforeUnmount(() => {
       display: none;
     }
   }
+  .menu_background {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 90%;
+    left: calc(50% - 28px);
+    width: 56px;
+    height: 34px;
+    background: rgb(0 0 0 / 20%);
+    backdrop-filter: blur(10px);
+    border-radius: 6px;
+    transition: transform 0.3s;
+    animation: fade 0.5s;
+    &:active {
+      transform: scale(0.95);
+    }
+    .i-icon {
+      transform: translateY(2px);
+    }
+    @media (min-width: 721px) {
+      display: none;
+    }
+  }
+
   @media (max-height: 720px) {
     overflow-y: auto;
     overflow-x: hidden;
@@ -203,19 +252,23 @@ onBeforeUnmount(() => {
         // w 1201px ~ max
         padding-left: 0.7vw;
         padding-right: 0.25vw;
-        @media (max-width: 1200px) { // w 1101px ~ 1280px
+        @media (max-width: 1200px) {
+          // w 1101px ~ 1280px
           padding-left: 2.3vw;
           padding-right: 1.75vw;
         }
-        @media (max-width: 1100px) { // w 993px ~ 1100px
+        @media (max-width: 1100px) {
+          // w 993px ~ 1100px
           padding-left: 2vw;
           padding-right: calc(2vw - 6px);
         }
-        @media (max-width: 992px) { // w 901px ~ 992px
+        @media (max-width: 992px) {
+          // w 901px ~ 992px
           padding-left: 2.3vw;
           padding-right: 1.7vw;
         }
-        @media (max-width: 900px) { // w 391px ~ 900px
+        @media (max-width: 900px) {
+          // w 391px ~ 900px
           padding-left: 2vw;
           padding-right: calc(2vw - 6px);
         }
