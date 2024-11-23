@@ -20,6 +20,9 @@
 <script setup>
 import { getAdcode, getWeather, getOtherWeather } from "@/api";
 import { Error } from "@icon-park/vue-next";
+import { mainStore } from "@/store";
+import { Speech, stopSpeech, SpeechLocal } from "@/utils/speech";
+const store = mainStore();
 
 // 高德开发者 Key
 const mainKey = import.meta.env.VITE_WEATHER_KEY;
@@ -46,6 +49,12 @@ const getTemperature = (min, max) => {
     return Math.round(average);
   } catch (error) {
     console.error("计算温度出现错误：", error);
+    if (store.webSpeech) {
+      stopSpeech();
+      const voice = import.meta.env.VITE_TTS_Voice;
+      const vstyle = import.meta.env.VITE_TTS_Style;
+      SpeechLocal("天气信息无法计算.mp3");
+    };
     return "NaN";
   }
 };
@@ -74,6 +83,12 @@ const getWeatherData = async () => {
       const adCode = await getAdcode(mainKey);
       console.log(adCode);
       if (adCode.infocode !== "10000") {
+        if (store.webSpeech) {
+          stopSpeech();
+          const voice = import.meta.env.VITE_TTS_Voice;
+          const vstyle = import.meta.env.VITE_TTS_Style;
+          SpeechLocal("位置信息获取失败.mp3");
+        };
         throw "地区查询失败";
       }
       weatherData.adCode = {
@@ -92,6 +107,12 @@ const getWeatherData = async () => {
   } catch (error) {
     console.error("天气信息获取失败:" + error);
     onError("天气信息获取失败");
+    if (store.webSpeech) {
+      stopSpeech();
+      const voice = import.meta.env.VITE_TTS_Voice;
+      const vstyle = import.meta.env.VITE_TTS_Style;
+      SpeechLocal("天气加载失败.mp3");
+    };
   }
 };
 

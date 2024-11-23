@@ -57,7 +57,7 @@ const siteLinksList = computed(() => {
   for (let i = 0; i < siteLinks.length; i += 6) {
     const subArr = siteLinks.slice(i, i + 6);
     result.push(subArr);
-  }
+  };
   return result;
 });
 
@@ -78,12 +78,8 @@ const jumpLink = (data) => {
     if (typeof $openList === "function") $openList();
   } else {
     window.open(data.link, "_blank");
-  }
+  };
 };
-
-onMounted(() => {
-  console.log(siteLinks);
-});
 </script>
 
 <style lang="scss" scoped>
