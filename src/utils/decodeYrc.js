@@ -1,5 +1,6 @@
 /**
  * Decode yrc text
+ * Made by Pizero
  * @param {string} i - yrc input
  * @returns {[number,number,[[number,number],string,number,number][]]}
  */
